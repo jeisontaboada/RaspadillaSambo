@@ -1,0 +1,14 @@
+@for (item of listaCremas(); track $index) {
+
+<div>
+  <span>{{ item.nombre }} </span>
+  <button (click)="item.id !== undefined && deleteCrema(item.id)">
+    Eliminar Crema
+  </button>
+</div>
+}
+
+<form (ngSubmit)="crearCrema(nuevaCrema)">
+  <input [(ngModel)]="nuevaCrema.nombre" type="text" name="nombre" required />
+  <button type="submit">Crear Crema</button>
+</form>
