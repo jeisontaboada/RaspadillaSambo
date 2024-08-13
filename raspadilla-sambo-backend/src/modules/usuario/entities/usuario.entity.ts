@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { TipoUsuario } from 'src/modules/tipo-usuario/entities/tipo-usuario.entity';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({
   name: 'usuario',
@@ -10,7 +17,7 @@ export class Usuario {
   @Column({
     type: 'varchar',
     length: 50,
-    unique:true,
+    unique: true,
     nullable: false,
   })
   usuario: string;
@@ -31,9 +38,13 @@ export class Usuario {
   correo: string;
 
   @Column({
-    type:"timestamp",
-    default:()=>"CURRENT_TIMESTAMP"
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
   })
-  created_at:Date
+  created_at: Date;
 
+  @ManyToOne(() => TipoUsuario, (tpu) => tpu.usuarios, {
+    eager: true,
+  })
+  tipoUsuario: TipoUsuario;
 }
