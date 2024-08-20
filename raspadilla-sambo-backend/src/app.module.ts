@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { CremaModule } from './modules/crema/crema.module';
-import { TallaModule } from './modules/talla/talla.module';
 import { TamanioModule } from './modules/tamanio/tamanio.module';
 import { PedidoModule } from './modules/pedido/pedido.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
@@ -24,7 +23,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities:true
     }),
     CremaModule,
-    TallaModule,
     TamanioModule,
     PedidoModule,
     UsuarioModule,

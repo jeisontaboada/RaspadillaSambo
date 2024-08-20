@@ -16,5 +16,6 @@ export class TipoUsuario {
   })
   nombre: string;
 
-  @OneToMany(() => Usuario, (user) => user.tipoUsuario) usuarios: Usuario[];
+  @OneToMany(() => Usuario, (user) => user.tipoUsuario)
+  usuarios: Usuario[];
 }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { DetallePedidoCrema } from "src/modules/pedido/entities/detalle-pedido-crema";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
     name:"crema"
@@ -15,4 +16,10 @@ export class Crema {
         nullable:false
     })
     nombre:string
+
+    @OneToMany(
+        () => DetallePedidoCrema,
+        dpc => dpc.crema
+    )
+    detalles_pedidos_cremas: DetallePedidoCrema[]
 }
