@@ -13,6 +13,7 @@ export class PedidoService {
   ) {}
 
   create(createPedidoDto: CreatePedidoDto) {
+    return createPedidoDto
     return 'This action adds a new pedido';
   }
 
