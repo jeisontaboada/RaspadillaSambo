@@ -6,6 +6,8 @@ import { DetallePedidoCrema } from './entities/detalle-pedido-crema';
 import { DetallePedido } from './entities/detalle-pedido';
 import { EstadoPedido } from './entities/estado-pedido';
 import { Pedido } from './entities/pedido.entity';
+import { TamanioModule } from '../tamanio/tamanio.module';
+import { CremaModule } from '../crema/crema.module';
 
 @Module({
   imports: [
@@ -14,7 +16,9 @@ import { Pedido } from './entities/pedido.entity';
       DetallePedido,
       EstadoPedido,
       Pedido
-    ])
+    ]),
+    TamanioModule,
+    CremaModule
   ],
   controllers: [PedidoController],
   providers: [PedidoService],

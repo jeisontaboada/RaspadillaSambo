@@ -4,17 +4,34 @@ import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pedido } from './entities/pedido.entity';
 import { Repository } from 'typeorm';
+import { TamanioService } from '../tamanio/tamanio.service';
+import { CremaService } from '../crema/crema.service';
 
 @Injectable()
 export class PedidoService {
   constructor(
     @InjectRepository(Pedido)
     private readonly repo: Repository<Pedido>,
+    private readonly tamanioService: TamanioService,
+    private readonly cremaService : CremaService,
   ) {}
 
-  create(createPedidoDto: CreatePedidoDto) {
-    return createPedidoDto
-    return 'This action adds a new pedido';
+ async create(dto: CreatePedidoDto) {
+  dto.comanda.map(async comanda => {
+    const tamanio = await this.tamanioService.findOne(comanda.idTamanio);
+    const listCremas = await Promise.all(
+      comanda.cremas.map(async cremaId => {
+        const crema = await this.cremaService.findOne(cremaId);
+        return crema;
+      })
+    );
+
+    const newPedido = this.repo.create({
+
+    })
+  
+  })
+
   }
 
   async findAll() {

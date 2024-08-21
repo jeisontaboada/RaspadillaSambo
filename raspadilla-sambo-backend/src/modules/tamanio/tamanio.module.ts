@@ -5,11 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Tamanio } from './entities/tamanio.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      Tamanio
-    ])
-  ],
+  exports: [TamanioService],
+  imports: [TypeOrmModule.forFeature([Tamanio])],
   controllers: [TamanioController],
   providers: [TamanioService],
 })

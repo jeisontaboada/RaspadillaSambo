@@ -1,26 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTamanioDto } from './dto/create-tamanio.dto';
 import { UpdateTamanioDto } from './dto/update-tamanio.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Tamanio } from './entities/tamanio.entity';
 
 @Injectable()
 export class TamanioService {
-  create(createTamanioDto: CreateTamanioDto) {
-    return 'This action adds a new tamanio';
+  constructor(
+    @InjectRepository(Tamanio)
+    private readonly repo: Repository<Tamanio>,
+  ) {}
+
+  async create(createTamanioDto: CreateTamanioDto) {
+    const {talla} = createTamanioDto;
+
+    const data= await this.ifExistsTamanio(talla);
   }
 
-  findAll() {
-    return `This action returns all tamanio`;
+  async findAll() {
+    return await this.repo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tamanio`;
+  async ifExistsTamanio(talla: string) {
+    const data = await this.repo.findOne({ where: { talla } });
+    if (data) {
+      throw new ConflictException('El tamaño ya existe');
+    }
+    return data;
   }
 
-  update(id: number, updateTamanioDto: UpdateTamanioDto) {
+  async findOne(id: number) {
+    const tamanio = await this.repo.findOne({ where: { id } });
+    if (!tamanio) {
+      throw new NotFoundException(`No se encontro el tamaño ${id}`);
+    }
+    return tamanio;
+  }
+
+  async update(id: number, updateTamanioDto: UpdateTamanioDto) {
     return `This action updates a #${id} tamanio`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} tamanio`;
   }
 }
