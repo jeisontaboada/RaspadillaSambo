@@ -2,17 +2,22 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CremaService } from '../../services/crema.service';
 import Crema from '../../interfaces/crema';
 import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-cremas',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, MatTableModule, MatIconModule, MatButtonModule, MatTooltipModule],
   templateUrl: './cremas.component.html',
-  styleUrl: './cremas.component.scss',
 })
 export class CremasComponent implements OnInit {
   cremaService = inject(CremaService);
   listaCremas = signal<Crema[]>([]);
+
+  displayedColumns: string[] = ['position', 'nombre', 'actions'];
 
   ngOnInit(): void {
     this.getAllCremas();
@@ -24,7 +29,7 @@ export class CremasComponent implements OnInit {
         this.listaCremas.set(data);
       },
       error: (err) => {
-        console.log(err);
+        alert('Error al obtener las cremas');
       },
     });
   }
@@ -41,6 +46,10 @@ export class CremasComponent implements OnInit {
         console.log('Error al crear crema', err);
       },
     });
+  }
+
+  getToken(): string {
+    return localStorage.getItem('token') || '';
   }
 
   deleteCrema(id: number) {

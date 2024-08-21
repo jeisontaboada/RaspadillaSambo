@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BASE_URL } from '../../config/constants';
 import Talla from '../interfaces/talla';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TallaService {
-  private readonly url = `${BASE_URL}/talla`;
+  private readonly url = `${environment.baseUrl}/talla`;
   private readonly http = inject(HttpClient);
 
   getAll() {
