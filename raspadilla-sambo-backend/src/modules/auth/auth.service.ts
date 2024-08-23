@@ -20,7 +20,7 @@ export class AuthService {
       }
       const payload = { id: user.id, usuario:user.usuario, email: user.correo};
       const token = await this.jwtService.signAsync(payload)
-      const expiresAt = this.addMinutesToDate(1);
+      const expiresAt = this.addMinutesToDate(180);
       return {
         access_token: token,
         token_type: 'bearer',
