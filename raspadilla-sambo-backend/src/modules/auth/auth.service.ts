@@ -24,7 +24,7 @@ export class AuthService {
       return {
         access_token: token,
         token_type: 'bearer',
-        expiresAt: expiresAt
+        expiresAt: expiresAt 
       }
     }
 
